@@ -1,0 +1,94 @@
+body {
+    background-image: url("https://www.transparenttextures.com/patterns/brick-wall-dark.png");
+    background-color: brown;
+}
+
+#logo {
+    margin-left: 35%;
+    height: 300px;
+    width: 350px;
+}
+
+#submit {
+    background: url(https://i.ibb.co/vJX0qwk/ff1e70db-38bf-44ad-9737-874e66c41c7d-200x200.png);
+    height: 50px;
+    width: 185px;
+    background-position: center;
+    border-color: rgb(184, 187, 187);
+    vertical-align: -webkit-baseline-middle;
+    background-color: black;
+}
+
+#inputS {
+    overflow: hidden;
+    height: 50px;
+    vertical-align: -webkit-baseline-middle;
+    margin-left: 33%;
+    border: 2px;
+    border-color: black;
+    border-style: groove;
+}
+
+.gifbtn {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 2px;
+    border-radius: 7px;
+    background-color: black;
+    color: white;
+    border-color: gray;
+
+}
+
+.gifbtn:hover {
+    animation: shake 1.90s cubic-bezier(.36,.07,.19,.97) both;
+    background-color: brown;
+    color: black;
+}
+
+#social {
+    margin-left: 35%;
+    margin-top: 4%;
+    margin-bottom: 1px;
+}
+
+a {
+    color: rgb(15, 14, 14);
+    text-decoration: none;
+    background-color: transparent;
+    /* padding-left: 94%; */
+    font-size: 75px;
+    margin-left: 60%;
+}
+
+
+
+
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+  
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+}
+
+@keyframes bouncing {
+    0%, 50%, 100% { /* OR from, 50%, to */
+        top: 0;
+    }
+    25%, 75% {
+        top: 100px;
+    }
+
+}

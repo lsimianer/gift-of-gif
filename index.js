@@ -6,9 +6,9 @@
 
 
 
-$( document ).ready(function() {
-    console.log( "ready!" );
-});
+// $( document ).ready(function() {
+//     console.log( "ready!" );
+// });
 
 
 var btnArr = ['Hyena', 'hound', 'doggo', 'oops', 'no', 'yes', 'nope', 'always',
@@ -34,17 +34,20 @@ console.log('btns printed foo');
 $('#submit').on('click',arrAdd);
 
 function arrAdd(){
-    event.preventDefault();
     // get value from input text
+    var btn = document.createElement("button");
+        btn.className = 'gifbtn';
+
     var inputText = document.getElementById('inputS').value;
     // append the data to array btnArr
-    btnArr.push(inputText);
+    btnArr.push(inputText);        
 
-        var btn = document.createElement("button");
         var z = document.createTextNode(inputText);
         btn.appendChild(z);
         $('#btnHolder').append(btn);
     console.log('new btn new me foo')
+    event.preventDefault();
+
 }
 
 
@@ -53,24 +56,15 @@ function arrAdd(){
 // btn inner text = input
 $('button').on('click',queryAPI);
 
-
-
-
-
 var api = "https://api.giphy.com/v1/gifs/search?api_key=";
 
 var apiKey ="B9XGGzdHohUagG4MtS6gQfhRuXHXYTzJ&q=";
 
-// var input = buttontext;
-// document.getElementsByTagName("button").textContent;
-
-// console.log(buttontext);
-
 var buttons = document.querySelectorAll("[class ='gifbtn'");
 var buttontext;
     for(var i=0; i<buttons.length; i++){
-        buttons[i].addEventListener("click", function(){document.querySelector('button').textContent += " " + this.innerHTML
-        buttontext=this.innerHTML;
+        buttons[i].addEventListener("click", function(){document.querySelector('button').textContent.innerHTML
+        // buttontext= this.innerHTML;
         console.log(buttontext)}
       )
 }
@@ -84,6 +78,7 @@ var lims = "&limit=10&offset=0&rating=G&lang=en";
 // queries the API
 function queryAPI(){
 
+    buttontext = $(this).text();
     // build the url for the api call
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + buttontext + lims;
 
@@ -116,18 +111,18 @@ function queryAPI(){
                 var p = $("<p>").text("Rating: " + rating);
   
                 // Creating an image tag
-                var personImage = $("<img>");
+                var gifResult = $("<img>");
   
                 // Giving the image tag an src attribute of a proprty pulled off the
                 // result item
-                personImage.attr("src", results[i].images.fixed_height.url);
+                gifResult.attr("src", results[i].images.fixed_height.url);
   
-                // Appending the paragraph and personImage we created to the "gifDiv" div we created
+                // Appending the paragraph and gifResult we created to the "gifDiv" div we created
                 gifDiv.append(p);
-                gifDiv.append(personImage);
+                gifDiv.append(gifResult);
   
                 // Prepending the gifDiv to the div in the HTML
-                $("#displayHere").prepend(gifDiv);
+                $("#displayHere").append(gifDiv);
               }
             }
           });
