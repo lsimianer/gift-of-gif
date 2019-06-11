@@ -9,7 +9,7 @@
 // $( document ).ready(function() {
 //     console.log( "ready!" );
 // });
-
+// lets make arrAdd, only ad to the array and then trigger the print button
 
 var btnArr = ['Hyena', 'hound', 'doggo', 'oops', 'no', 'yes', 'nope', 'always',
 'love', 'food', 'hungry', 'strong', 'workout', 'sleep', 'gains', 'code', 'computer', 'crazy', 'drinks',];
@@ -21,10 +21,7 @@ for(var i = 0; i < btnArr.length; i++){
     var t = document.createTextNode(btnArr[i]);
     btn.appendChild(t);
     $('#btnHolder').append(btn);
-     // document.body.appendChild(btn);
-    // l.innerHTML = btnArr[i];
-    // l.className = 'btnLetter';
-    // div_available.appendChild(l);
+    //  getText();
     }
 }
 printBtn();
@@ -34,19 +31,23 @@ console.log('btns printed foo');
 $('#submit').on('click',arrAdd);
 
 function arrAdd(){
+    event.preventDefault();
+
     // get value from input text
-    var btn = document.createElement("button");
-        btn.className = 'gifbtn';
+     var btn = document.createElement("button");
+         btn.className = 'gifbtn';
 
     var inputText = document.getElementById('inputS').value;
     // append the data to array btnArr
-    btnArr.push(inputText);        
+    btnArr.push(inputText);    
+    
+    // $('#btnHolder').empty(); // empty the div before fetching and adding new data
+       var z = document.createTextNode(inputText);
+         btn.appendChild(z);
+       $('#btnHolder').append(btn);
 
-        var z = document.createTextNode(inputText);
-        btn.appendChild(z);
-        $('#btnHolder').append(btn);
-    console.log('new btn new me foo')
-    event.preventDefault();
+    //    getText();
+     console.log('new btn new me foo')
 
 }
 
@@ -54,20 +55,32 @@ function arrAdd(){
 //on btn click run gif search
 // api >>>>done
 // btn inner text = input
-$('button').on('click',queryAPI);
+console.log("test");
+$(document).on('click', '.gifbtn',queryAPI);
 
 var api = "https://api.giphy.com/v1/gifs/search?api_key=";
 
 var apiKey ="B9XGGzdHohUagG4MtS6gQfhRuXHXYTzJ&q=";
 
-var buttons = document.querySelectorAll("[class ='gifbtn'");
-var buttontext;
-    for(var i=0; i<buttons.length; i++){
-        buttons[i].addEventListener("click", function(){document.querySelector('button').textContent.innerHTML
-        // buttontext= this.innerHTML;
-        console.log(buttontext)}
-      )
-}
+
+
+// function getText(){
+
+// var buttons = document.querySelectorAll("[class ='gifbtn'");
+// var buttontext;
+//     for(var i=0; i<buttons.length; i++){
+//         buttons[i].addEventListener("click", function(){document.querySelector('.gifbtn').textContent.innerHTML
+//         // buttontext= this.innerHTML;
+//         console.log(buttontext)}
+//       )
+//     }
+
+// }
+
+
+var buttontext = document.querySelector('.gifbtn').textContent.innerHTML;
+
+
 
 
 var lims = "&limit=10&offset=0&rating=G&lang=en";
@@ -77,6 +90,8 @@ var lims = "&limit=10&offset=0&rating=G&lang=en";
 // var input = 
 // queries the API
 function queryAPI(){
+
+    // getText()
 
     buttontext = $(this).text();
     // build the url for the api call
