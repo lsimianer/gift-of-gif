@@ -17,10 +17,11 @@ var btnArr = ['Hyena', 'hound', 'doggo', 'oops', 'no', 'yes', 'nope', 'always',
 function printBtn(){
 for(var i = 0; i < btnArr.length; i++){
     var btn = document.createElement("button");
+    btn.className = 'gifbtn';
     var t = document.createTextNode(btnArr[i]);
     btn.appendChild(t);
     $('#btnHolder').append(btn);
-    // document.body.appendChild(btn);
+     // document.body.appendChild(btn);
     // l.innerHTML = btnArr[i];
     // l.className = 'btnLetter';
     // div_available.appendChild(l);
@@ -47,31 +48,87 @@ function arrAdd(){
 }
 
 
-
 //on btn click run gif search
-document.getElementsByClassName('.sBtns').click(gifsearch);
 // api >>>>done
 // btn inner text = input
+$('button').on('click',queryAPI);
 
-var api = "https://api.giphy.com/v1/gifs/search?api_key=B9XGGzdHohUagG4MtS6gQfhRuXHXYTzJ&q=";
-// var TITLE = "the terminator";
-var input = document.getElementsByClassName('sBtns').innerHTML;
-console.log(input);
+
+
+
+
+var api = "https://api.giphy.com/v1/gifs/search?api_key=";
+
+var apiKey ="B9XGGzdHohUagG4MtS6gQfhRuXHXYTzJ&q=";
+
+// var input = buttontext;
+// document.getElementsByTagName("button").textContent;
+
+// console.log(buttontext);
+
+var buttons = document.querySelectorAll("[class ='gifbtn'");
+var buttontext;
+    for(var i=0; i<buttons.length; i++){
+        buttons[i].addEventListener("click", function(){document.querySelector('button').textContent += " " + this.innerHTML
+        buttontext=this.innerHTML;
+        console.log(buttontext)}
+      )
+}
+
 
 var lims = "&limit=10&offset=0&rating=G&lang=en";
 
 
-// var theBtn = document.getElementsByClassName('.sBtns').value;
+// get the innertext from buttons to be my input = var input for my query... 
+// var input = 
+// queries the API
+function queryAPI(){
 
-// function gifSearch() {
-//     event.preventDefault();
+    // build the url for the api call
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + buttontext + lims;
 
-// var url = api + input.val() + lims;
-// console.log(url);
-// $.ajax({
-//     url: url,
-//     method: "GET"
-// })
-// // .then(function(response) {
+    $('#displayHere').empty(); // empty the div before fetching and adding new data
 
-// // }
+    console.log(queryAPI);
+    console.log(apiKey);
+
+    // api call
+    $.ajax({
+        url: queryURL,
+        method: 'GET'
+    }).then(function(response) {
+            // Storing an array of results in the results variable
+            var results = response.data;
+        
+            console.log(response);
+            // Looping over every result item
+            for (var i = 0; i < results.length; i++) {
+  
+              // Only taking action if the photo has an appropriate rating
+              if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                // Creating a div for the gif
+                var gifDiv = $("<div>");
+  
+                // Storing the result item's rating
+                var rating = results[i].rating;
+  
+                // Creating a paragraph tag with the result item's rating
+                var p = $("<p>").text("Rating: " + rating);
+  
+                // Creating an image tag
+                var personImage = $("<img>");
+  
+                // Giving the image tag an src attribute of a proprty pulled off the
+                // result item
+                personImage.attr("src", results[i].images.fixed_height.url);
+  
+                // Appending the paragraph and personImage we created to the "gifDiv" div we created
+                gifDiv.append(p);
+                gifDiv.append(personImage);
+  
+                // Prepending the gifDiv to the div in the HTML
+                $("#displayHere").prepend(gifDiv);
+              }
+            }
+          });
+      };
